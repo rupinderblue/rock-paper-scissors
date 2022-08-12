@@ -6,79 +6,74 @@ function computerPlay() {
 
 function playRound(playerSelection,computerSelection){
     playerSelection = playerSelection.toLowerCase()
+    computerSelection = computerPlay();
     const options = ['rock','paper','scissors']
     if (playerSelection ==="rock" && computerSelection ==="scissors"){
-        //return `You Win! ${playerSelection.toUpperCase()} beats ${computerSelection}`
-        return 1
+        document.getElementById('results').innerHTML = `You Win! ${playerSelection} beats ${computerSelection}`;
+        var playerScore = parseInt(document.getElementById('playerScore').innerHTML);
+        playerScore += 1;
+        document.getElementById('playerScore').innerHTML = playerScore;
+        
     }
     else if (playerSelection ==="paper" && computerSelection ==="rock"){
-        //return `You Win! ${playerSelection} beats ${computerSelection}`
-        return 1
+        document.getElementById('results').innerHTML = `You Win! ${playerSelection} beats ${computerSelection}`;
+        var playerScore = parseInt(document.getElementById('playerScore').innerHTML);
+        playerScore += 1;
+        document.getElementById('playerScore').innerHTML = playerScore;
     }
     else if (playerSelection ==="scissors" && computerSelection ==="paper"){
-        //return `You Win! ${playerSelection} beats ${computerSelection}`
-        return 1
+        document.getElementById('results').innerHTML = `You Win! ${playerSelection} beats ${computerSelection}`;
+        var playerScore = parseInt(document.getElementById('playerScore').innerHTML);
+        playerScore += 1;
+        document.getElementById('playerScore').innerHTML = playerScore;
     }
     else if (playerSelection ==="scissors" && computerSelection ==="rock"){
-        //return `You Lose! ${computerSelection} beats ${playerSelection}`
-        return -1
+        document.getElementById('results').innerHTML = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        var computerScore = parseInt(document.getElementById('computerScore').innerHTML);
+        computerScore += 1;
+        document.getElementById('computerScore').innerHTML = computerScore;
+        
     }
     else if (playerSelection ==="rock" && computerSelection ==="paper"){
-        //return `You Lose! ${computerSelection} beats ${playerSelection}`
-        return -1
+        document.getElementById('results').innerHTML = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        var computerScore = parseInt(document.getElementById('computerScore').innerHTML);
+        computerScore += 1;
+        document.getElementById('computerScore').innerHTML = computerScore;
+
     }
     else if (playerSelection ==="paper" && computerSelection ==="scissors"){
-        //return `You Lose! ${computerSelection} beats ${playerSelection}`
-        return -1
+        document.getElementById('results').innerHTML = `You Lose! ${computerSelection} beats ${playerSelection}`;
+        var computerScore = parseInt(document.getElementById('computerScore').innerHTML);
+        computerScore += 1;
+        document.getElementById('computerScore').innerHTML = computerScore;
+
     }
     else {
-        //return `It's a Tie! You chose, ${playerSelection} and Comp chose, ${computerSelection}`
-        return 0
+        document.getElementById('results').innerHTML = `It's a Tie! You chose, ${playerSelection} and Comp chose, ${computerSelection}`;
+        
+    }
+    if (playerScore==5){
+        var computerScore = parseInt(document.getElementById('computerScore').innerHTML);
+        alert(`You Win! ${playerScore} beats ${computerScore}`);
+        document.getElementById('playerScore').innerHTML = 0;
+        document.getElementById('computerScore').innerHTML = 0;
+        document.getElementById('results').innerHTML = 'First to 5 Wins';
+
+    }
+    else if (computerScore == 5) {
+        var playerScore = parseInt(document.getElementById('playerScore').innerHTML);
+        alert(`You Lost! ${computerScore} beats ${playerScore}`);
+        document.getElementById('playerScore').innerHTML = 0;
+        document.getElementById('computerScore').innerHTML = 0;
+        document.getElementById('results').innerHTML = 'First to 5 Wins';
     }
 }
 
-function askPlayerSelection(){
-    return prompt("Chose your move:")
-}
 
-function game(){
-let playerScore = 0;
-let computerScore = 0;
-for (let i=0; i<5;i++){
-    const options = ['rock','paper','scissors']
-    let playerSelection=askPlayerSelection();
-    let counter = 0;
-    while (!options.includes(playerSelection.toLocaleLowerCase()) && counter<5 ){
-        counter++;
-        playerSelection=askPlayerSelection();
-    }
-    if (counter ==5){
-        playerSelection='rock'
-    }
-    const computerSelection = computerPlay();
-    let score = playRound(playerSelection,computerSelection)
-    if (score>0){
-        playerScore+=1
-        console.log(`You Win this Round! ${playerSelection.toLowerCase()} beats ${computerSelection}`)
-    }
-    else if (score<0){
-        computerScore+=1
-        console.log(`You Lost this Round! ${computerSelection} beats ${playerSelection.toLowerCase()}`)
-    }
-    else{
-        console.log(`A Tie this Round! Comp = ${computerSelection} and Player = ${playerSelection.toLowerCase()}`)
-    }
 
-}
-if (playerScore>computerScore){
-    return `You Win! ${playerScore} beats ${computerScore}`
-}
-else if (playerScore<computerScore){
-    return `You Lost! ${computerScore} beats ${playerScore}`
-}
-else{
-    return `It's a Tie! Comp = ${computerScore} and Player = ${playerScore}`
-}
-}
 
-console.log(game())
+document.body.addEventListener('click', event => {
+    if (event.target.nodeName == "BUTTON") {
+        playRound(playerSelection=event.target.textContent);
+    }
+})
